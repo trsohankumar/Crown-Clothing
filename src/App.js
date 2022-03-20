@@ -13,7 +13,8 @@ const App = () => {
       {/*match with the base url and match with the element */}
       <Route path='/' element= {<Navigation />}>
         <Route index element={<Home />} />
-        <Route path='shop' element={<Shop />} />
+        {/* match with shop/anything this is used for nested routing  */}
+        <Route path='shop/*' element={<Shop />} />
         <Route path ='auth' element={<Authentication />} />
         <Route path="checkout" element={<Checkout />} />
       </Route>

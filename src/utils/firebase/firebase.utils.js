@@ -1,3 +1,4 @@
+import { async } from '@firebase/util';
 import { initializeApp,} from 'firebase/app'
 import {
   getAuth, 
@@ -7,13 +8,17 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
   } from 'firebase/auth'
 import {
     getFirestore,
     doc,
     getDoc,
-    setDoc
+    setDoc,
+    collection,
+    writeBatch,
+    query,
+    getDocs
 } from 'firebase/firestore'
 //initializeApp creates an app instance based on some config instance
 //basically this instance should refer to the one created on firebase console
@@ -48,7 +53,36 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth,provider)
 //used to access the database, used for setting and getting documents
 export const db = getFirestore()
 
+//code to store the images and various clothes to the firestore database
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  //basically data and the collection key
+  const collectionRef  = collection(db,collectionKey)
+  const batch = writeBatch(db);
 
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object)
+  });
+
+  await batch.commit();
+
+  console.log('done')
+}
+
+
+export const getCategoriesAndDocument  = async () => {
+  const collectionRef = collection(db, 'categories')
+  const q = query(collectionRef)
+
+  const querySnapshot = await getDocs(q)
+  const categoryMap = querySnapshot.docs.reduce((acc,docSnapshot) => {
+    const {title, items} = docSnapshot.data();
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {})
+
+  return categoryMap;
+}
 
 
 export const createUserDocumentFromAuth = async (

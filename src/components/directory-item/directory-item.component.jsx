@@ -1,10 +1,10 @@
-import './category-item.styles.scss'
+import './directory-item.styles.scss'
 
-const CategoryItem = ({category}) => {
+const DirectoryItem = ({category}) => {
     const {imageUrl, title} = category
     return (
         /*container for each individual category like hats jackets etc */
-        <div  className='category-container'>
+        <div  className='directory-item-container'>
           {/*image that is displayed in the background */}
           {/*Dynamically chaning styles can be given in react using style object
             key is the css property to be modified and value is the 
@@ -13,7 +13,7 @@ const CategoryItem = ({category}) => {
           <div className='background-image' style={{
             backgroundImage: `url(${imageUrl})`
           }}/>
-          <div className='category-body-container'>
+          <div className='body'>
             {/* Displays the  text to be displayed on the image */}
             {/* syntax to display variable values in react*/}  
             <h2>{title}</h2>
@@ -23,4 +23,4 @@ const CategoryItem = ({category}) => {
     )
 }
 
-export default CategoryItem
+export default DirectoryItem
