@@ -1,10 +1,16 @@
 import './directory-item.styles.scss'
+import { useNavigate } from 'react-router-dom'
 
 const DirectoryItem = ({category}) => {
     const {imageUrl, title} = category
+    const navigate = useNavigate();
+
+    const goToShopPage = () => {
+      navigate(`/shop/${title}`)
+    }
     return (
         /*container for each individual category like hats jackets etc */
-        <div  className='directory-item-container'>
+        <div  className='directory-item-container' onClick={goToShopPage}>
           {/*image that is displayed in the background */}
           {/*Dynamically chaning styles can be given in react using style object
             key is the css property to be modified and value is the 
@@ -16,8 +22,8 @@ const DirectoryItem = ({category}) => {
           <div className='body'>
             {/* Displays the  text to be displayed on the image */}
             {/* syntax to display variable values in react*/}  
-            <h2>{title}</h2>
-            <p>Shop Now</p>
+            <h2>{title.toUpperCase()}</h2>
+            <p>ShOP NOW</p>
           </div>
         </div>
     )
