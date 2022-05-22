@@ -4,6 +4,8 @@ body {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(0, 0, 66);
+  color: rgb(245, 184, 17);
 }
 
 code {
@@ -13,7 +15,7 @@ code {
 
 a{
   text-decoration: none;
-  color: black;
+  color: rgb(245, 184, 17);
 }
 
 * {
