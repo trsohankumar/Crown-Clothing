@@ -12,11 +12,13 @@ import './navigation.styles.scss';
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
-  const { isCartOpen} = useContext(CartContext)
+  const { isCartOpen ,setCartItems} = useContext(CartContext)
 
   const signOutHandler = async () => {
     // after sign out set the current user to null, this would change the value in the navbar
     await signOutUser();
+
+    setCartItems([])
   };
 
   return (

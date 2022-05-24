@@ -1,15 +1,18 @@
-import { useState} from 'react';
+import { useState , useContext, useEffect} from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-
+import { CartContext } from '../../contexts/cart.context';
 
 import {
   signInWithGooglePopup,
   signInAuthUserWithEmailAndPassword,
+  getUserCart
 } from '../../utils/firebase/firebase.utils';
 
 import './sign-in-form.styles.scss';
+
+import { UserContext } from '../../contexts/user.context';
 
 const defaultFormFields = {
   email: '',
@@ -24,8 +27,23 @@ const SignInForm = () => {
     setFormFields(defaultFormFields);
   };
 
+  const {setCartItems} = useContext(CartContext)
+
+  const {currentUser} = useContext(UserContext)
+
   const signInWithGoogle = async () => {
-    await signInWithGooglePopup();
+    const {user} = await signInWithGooglePopup();
+
+    if(user){
+      const data = await getUserCart(user)
+      
+
+      setCartItems(data.cart)
+    }    
+
+    
+
+    
   };
 
   const handleSubmit = async (event) => {
@@ -99,6 +117,7 @@ const SignInForm = () => {
           </CustomButton>
         </div>
       </form>
+      {}
     </div>
   );
 };

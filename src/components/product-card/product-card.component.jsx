@@ -17,7 +17,14 @@ const ProductCard = ({product}) => {
 
     const navigate = useNavigate();
 
-    const addProductToCart = () => addItemToCart(product,currentUser)
+    const addProductToCart = () => {
+        if(!currentUser){
+            alert("You must sign in first")
+            return
+        }
+        addItemToCart(product,currentUser)
+
+    }
 
     const goToProductPage = () => {
         

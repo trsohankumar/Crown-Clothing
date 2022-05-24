@@ -84,9 +84,20 @@ export const setUserCart = async (
     cart:cartInformation,
   })
 
+}
 
+export const getUserCart = async (userAuth) => {
 
-  
+  const userDocRef = doc(db,'carts',userAuth.uid)
+
+  const cartDoc = await getDoc(userDocRef)
+
+  if(cartDoc.exists()){
+    
+    return cartDoc.data()
+  }else{
+    return null
+  }
 }
 
 export const getCategoriesAndDocument  = async () => {
