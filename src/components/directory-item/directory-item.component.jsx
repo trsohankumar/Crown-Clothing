@@ -1,7 +1,10 @@
 import './directory-item.styles.scss'
 import { useNavigate } from 'react-router-dom'
 
+// contains the code for the homepage that is Shown 
+
 const DirectoryItem = ({category}) => {
+
     const {imageUrl, title} = category
     const navigate = useNavigate();
 

@@ -2,6 +2,7 @@ import { useContext } from 'react';
 
 import { CartContext } from '../../contexts/cart.context';
 
+import { UserContext } from '../../contexts/user.context';   
 
 import './checkout-card.styles.scss'
 
@@ -12,11 +13,13 @@ const CheckoutCard = ({checkoutItem}) => {
 
     const {addItemToCart,removeItemFromCart,deleteItemFromCart} = useContext(CartContext)
 
-    const incrementCheckoutItem = () => addItemToCart(checkoutItem)
+    const {currentUser} = useContext(UserContext)
 
-    const decrementCheckoutItem = () => removeItemFromCart(checkoutItem)
+    const incrementCheckoutItem = () => addItemToCart(checkoutItem,currentUser)
+
+    const decrementCheckoutItem = () => removeItemFromCart(checkoutItem ,currentUser)
     
-    const removeItem = () => deleteItemFromCart(checkoutItem)
+    const removeItem = () => deleteItemFromCart(checkoutItem,currentUser)
     return(
         <div className='checkout-item-container'>
         <div className='image-container'>

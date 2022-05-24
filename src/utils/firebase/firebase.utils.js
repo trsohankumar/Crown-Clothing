@@ -1,4 +1,4 @@
-import { async } from '@firebase/util';
+
 import { initializeApp,} from 'firebase/app'
 import {
   getAuth, 
@@ -69,6 +69,25 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
   console.log('done')
 }
 
+
+export const setUserCart = async (
+  cartInformation,
+  userAuth
+) => {
+
+  if (!userAuth) return;
+
+  const userDocRef = doc(db, 'carts', userAuth.uid);
+
+
+  setDoc(userDocRef,{
+    cart:cartInformation,
+  })
+
+
+
+  
+}
 
 export const getCategoriesAndDocument  = async () => {
   const collectionRef = collection(db, 'categories')
