@@ -48,16 +48,7 @@ const SignInForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    //empty array means that run this function once when the compnonent mounts
-    // this part is used as once the user signs and then returns back to this sign in page
-    // aka the sign in page mounts and we get the response
-    // useEffect(async() => {
-    //     const response = await getRedirectResult(auth);
-    //     if(response){
-    //         const userDocRef = await createUserDocumentFromAuth(response.user)
-    //     }
-    // },[])
-
+    
     //sign in with redirect is using a different approach because once we redirect to another page 
     // all the previous details will be unmounted
 

@@ -1,21 +1,25 @@
 import { createContext,useState } from "react";
 
 export const ProductContext = createContext({
-    productName: null,
-    setProductName: () => null,
-    productPrice:null,
-    setProductPrice: () => null,
-    productImage: null,
-    setProductImage: () => null,
+    product:null,
+    setProduct: () => null,
 })
+
+const defaultProduct = {
+    "id":0,
+    "imageUrl":null,
+    "name":null,
+    "price":0,
+    "quantity":0
+}
 
 export const ProductProvider = ({children}) =>{
 
-    const [productName ,setProductName] = useState(null);
-    const [productPrice, setProductPrice] = useState(null)
-    const [productImage, setProductImage] = useState(null)
+ 
 
-    const value = {productName, setProductName ,productPrice , productImage , setProductPrice , setProductImage}
+    const [product,setProduct] = useState(defaultProduct)
+
+    const value = {product , setProduct}
 
     return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>;
 }

@@ -93,7 +93,6 @@ export const getUserCart = async (userAuth) => {
   const cartDoc = await getDoc(userDocRef)
 
   if(cartDoc.exists()){
-    
     return cartDoc.data()
   }else{
     return null
@@ -135,6 +134,7 @@ export const createUserDocumentFromAuth = async (
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
+    console.log("In here")
 
     try {
       await setDoc(userDocRef, {
@@ -147,6 +147,28 @@ export const createUserDocumentFromAuth = async (
       console.log('error creating the user', error.message);
     }
   }
+
+  const cartDocRef = doc(db, 'carts', userAuth.uid);
+   //get doc gets data related to a document
+    //get the document for the user doc ref
+
+  const cartSnapshot = await getDoc(cartDocRef);
+
+  //check if cart data exist
+  //if user data does not exit then create / set the doc with the data
+  if (!cartSnapshot.exists()) {
+   
+    console.log("In cart")
+
+    try {
+      await setDoc(cartDocRef, {
+        "cart":[]
+      });
+    } catch (error) {
+      console.log('error creating the user cart', error.message);
+    }
+  }
+
 
   return userDocRef;
 };
