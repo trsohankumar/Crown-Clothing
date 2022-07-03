@@ -5,14 +5,17 @@ import { ProductContext } from '../../contexts/product.context'
 import { UserContext } from '../../contexts/user.context';
 import { CartContext } from '../../contexts/cart.context';
 
+
+import {ProductInfoContainer,ProductPageContainer,ProductPageDescription,ProductPageImage} from './product-page.styles.jsx'
+
 const ProductPage = () => {
 
-    const {productName,productImage , product} = useContext(ProductContext);
+    const {product} = useContext(ProductContext);
 
     const {addItemToCart} = useContext(CartContext)
     const {currentUser} = useContext(UserContext)
 
-    const {name, imageUrl} = product
+    const {name, imageUrl, price ,description} = product
 
     const addProductToCart = () => {
       if(!currentUser){
@@ -25,17 +28,25 @@ const ProductPage = () => {
     }
 
   return (
-    <div>
-        <h1>{name}</h1>
-        <img src={imageUrl} alt={`${name}`} />
+    <ProductPageContainer>
+      <ProductInfoContainer>
+        <ProductPageImage src={imageUrl} alt={`${name}`}/>
+        <div>
+          <h1>{name}</h1>
+          <ProductPageDescription>{description}</ProductPageDescription>
+          <span>Cost: {price}$</span>
+        </div>
+        
+      </ProductInfoContainer>
+        
         {/* to add
         add to cart button
         user reviews
         user star ratings */}
 
 
-        <CustomButton buttonType='inverted' onClick={addProductToCart}>Add to cart</CustomButton>
-    </div>
+        <CustomButton buttonType='inverted' onClick={addProductToCart} style={{marginLeft:"70vw"}}>Add to cart</CustomButton>
+    </ProductPageContainer>
   )
 }
 
